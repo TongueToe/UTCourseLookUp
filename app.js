@@ -8,6 +8,9 @@ app.config(function($routeProvider, $locationProvider){
     .when('/', {
         templateUrl: "partial-course.html"
     })
+    .otherwise({
+        redirectTo: '/'
+    });
     
 });
 
@@ -15,7 +18,9 @@ app.controller("MainCtrl", function($scope, $http, $location){
     $scope.fetch = function() {
         if($scope.course){
             $http.get('/fetch', {
-                params: {course: $scope.course}
+                params: {
+                    course: $scope.course
+                }
             }).then(function(response){
                 console.log(response.data);
                 $scope.class = response.data;

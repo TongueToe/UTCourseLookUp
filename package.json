@@ -10,8 +10,11 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "angular": "^1.6.1",
     "ejs": "2.4.1",
-    "express": "4.13.3"
+    "express": "4.13.3",
+    "jquery": "^3.1.1",
+    "mongodb": "^2.2.16"
   },
   "repository": {
     "type": "git",
