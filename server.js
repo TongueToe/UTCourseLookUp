@@ -30,6 +30,8 @@ app.get('/', function(request, response) {
 app.get('/fetch', function(request, response){
     response.send("Class sent is: " + request.query.course);
     console.log("Course received: " + request.query.course);
+
+    MongoClient.connect('mongodb://admin:123@ds151008.mlab.com:51008/heroku_k0jd41mf')
 });
 
 
