@@ -22,8 +22,7 @@ app.controller("MainCtrl", function($scope, $http, $location){
                     course: $scope.course
                 }
             }).then(function(response){
-                console.log(response.data);
-                $scope.class = response.data;
+                $scope.array = response.data;
 
             }, function(response){
                 $scope.class = "Something went wrong.";

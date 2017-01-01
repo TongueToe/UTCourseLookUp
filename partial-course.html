@@ -1,1 +1,7 @@
-<h1>{{class}}</h1>
+<table class="table table-striped table-bordered">
+    <tr ng-repeat="course in array">
+        <td>{{course.Abbr}} {{course.Number}}</td>
+        <td>{{course.Name}}</td>
+        <td>{{course.Description}}</td>
+    </tr>
+</table>

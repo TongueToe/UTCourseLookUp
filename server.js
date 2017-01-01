@@ -28,10 +28,50 @@ app.get('/', function(request, response) {
 });
 
 app.get('/fetch', function(request, response){
-    response.send("Class sent is: " + request.query.course);
-    console.log("Course received: " + request.query.course);
+    var req = request.query.course;
 
-    MongoClient.connect('mongodb://admin:123@ds151008.mlab.com:51008/heroku_k0jd41mf')
+    // string process
+    req = req.toUpperCase().replace(/ /g, "");
+    var indexOfFirstNum = req.indexOf(req.match(/\d/));
+
+    var abbr = req.substring(0, indexOfFirstNum);
+    var num = req.substring(indexOfFirstNum);
+
+    if(indexOfFirstNum < 1){
+        abbr = req;
+
+        queryObj = {
+            "Abbr" : abbr
+        }
+    }
+    else {
+        queryObj = {
+            "Abbr" : abbr,
+            "Number" : num
+        }
+    }
+
+    MongoClient.connect('mongodb://admin:123@ds151008.mlab.com:51008/heroku_k0jd41mf', function (err, db){
+        if (err){
+            throw error;
+        }
+        
+        db.collection('utcourses').find(queryObj).toArray(function(err, courses){
+            if(err) {
+                throw err;
+            }
+            console.log(courses);
+            
+            if(courses.length == 0){
+                response.send("Error 0");
+            }
+            else{
+                response.send(JSON.stringify(courses));
+        }
+        });
+
+    });
+
 });
 
 
