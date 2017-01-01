@@ -22,10 +22,22 @@ app.controller("MainCtrl", function($scope, $http, $location){
                     course: $scope.course
                 }
             }).then(function(response){
-                $scope.array = response.data;
+                if(typeof response.data == 'object' && 'Name' in response.data[0] && response.data[0].Name){
+                    $scope.array = response.data;
+                    angular.element(document.querySelector("#results")).removeClass("ng-hide");
+                    angular.element(document.querySelector("#danger")).addClass("ng-hide");
+
+                    $scope.resultNum = response.data.length;
+                }
+                else {
+                    angular.element(document.querySelector("#results")).addClass("ng-hide");
+
+                    angular.element(document.querySelector("#danger")).removeClass("ng-hide");
+                    $scope.error = response.data;
+                }
 
             }, function(response){
-                $scope.class = "Something went wrong.";
+                $scope.error = "Something went wrong.";
             });
         }
         else{

@@ -1,7 +1,18 @@
-<table class="table table-striped table-bordered">
-    <tr ng-repeat="course in array">
-        <td>{{course.Abbr}} {{course.Number}}</td>
-        <td>{{course.Name}}</td>
-        <td>{{course.Description}}</td>
-    </tr>
-</table>
+<div id="results" class="ng-hide">
+    <div class="alert alert-info">{{resultNum}} result(s) returned.</div>
+
+    <table class="table table-hover table-condensed">
+        <tr>
+            <td><strong>Course</strong></td>
+            <td><strong>Name</strong></td>
+            <td><strong>Description</strong></td>
+        </tr>
+        <tr ng-repeat="course in array">
+            <td class="col-lg-1">{{course.Abbr}} {{course.Number}}</td>
+            <td class="col-lg-1">{{course.Name}}</td>
+            <td class="col-lg-10">{{course.Description}}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="alert alert-danger ng-hide" id="danger">{{error}}</div>

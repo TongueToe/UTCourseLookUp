@@ -47,7 +47,7 @@ app.get('/fetch', function(request, response){
     else {
         queryObj = {
             "Abbr" : abbr,
-            "Number" : num
+            "Number" : new RegExp(num)
         }
     }
 
@@ -60,10 +60,9 @@ app.get('/fetch', function(request, response){
             if(err) {
                 throw err;
             }
-            console.log(courses);
-            
+
             if(courses.length == 0){
-                response.send("Error 0");
+                response.send("Invalid Course");
             }
             else{
                 response.send(JSON.stringify(courses));
