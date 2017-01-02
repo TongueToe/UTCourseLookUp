@@ -15,13 +15,9 @@ app.config(function($routeProvider, $locationProvider){
 });
 
 app.controller("MainCtrl", function($scope, $http, $location){
-    $scope.fetch = function() {
+    $scope.search = function() {
         if($scope.course){
-            $http.get('/fetch', {
-                params: {
-                    course: $scope.course
-                }
-            }).then(function(response){
+            $http.get('/search/' + $scope.course).then(function(response){
                 if(typeof response.data == 'object' && 'Name' in response.data[0] && response.data[0].Name){
                     $scope.array = response.data;
                     angular.element(document.querySelector("#results")).removeClass("ng-hide");

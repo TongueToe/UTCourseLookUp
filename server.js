@@ -7,28 +7,34 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
 
-// Resources
-app.get('/partial-course.html', function(request, response){
+// Route
+var router = express.Router()
+
+router.get('/partial-course.html', function(request, response){
     response.sendFile('partial-course.html', {"root": __dirname});
 });
 
-app.get('/css/simple-sidebar.css', function(request, response) {
-    console.log("CSS loaded");
+router.get('/css/simple-sidebar.css', function(request, response) {
     response.sendFile("css/simple-sidebar.css", {"root": __dirname});
 });
 
-app.get('/app.js', function(request, response){
-    console.log("app.js loaded");
+router.get('/app.js', function(request, response){
     response.sendFile("app.js", {"root": __dirname});
 });
 
+router.get('/favicon.ico', function(request, response){
+    response.sendFile("favicon.ico", {"root": __dirname});
+});
+
 // Requests
-app.get('/', function(request, response) {
+router.get('/', function(request, response) {
     response.sendFile("index.html", {"root": __dirname});
 });
 
-app.get('/fetch', function(request, response){
-    var req = request.query.course;
+router.get('/search/:course', function(request, response){
+    var req = decodeURIComponent(request.params.course);
+    console.log("Before: " + request.params.course)
+    console.log("After: " + req);
 
     // string process
     req = req.toUpperCase().replace(/ /g, "");
@@ -73,6 +79,7 @@ app.get('/fetch', function(request, response){
 
 });
 
+app.use(router);
 
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
