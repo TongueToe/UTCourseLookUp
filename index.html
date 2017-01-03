@@ -88,7 +88,7 @@
                             <div class="row">
                                 <label class="col-lg-2 control-label">Course</label>
                                 <div class="col-lg-10">
-                                    <ui-select ng-model="searchCourse" theme="bootstrap" on-select="displayCourse(searchCourse)">
+                                    <ui-select reset-search-input="true" ng-model="searchCourse" theme="bootstrap" on-select="displayCourse(searchCourse)">
                                         <ui-select-match>{{$select.selected.Abbr}} {{$select.selected.Number}} - {{$select.selected.Name}}</ui-select-match>
                                         <ui-select-choices repeat="course in courses | filter: $select.search">
                                             <span ng-bind-html="course.Abbr | highlight: $select.search"></span> 

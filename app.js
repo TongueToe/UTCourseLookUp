@@ -45,19 +45,20 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
     }
 
     $scope.loadCourses = function(field) {
+
         $http.get('/search/field/' + field[1]).then(function(response) {
             $scope.courses = response.data;
         });
     }
 
-    $scope.displayCourse = function(course) {
+    $scope.displayCourse = function(course, $select) {
         var arr = [];
         arr.push(course)
         $scope.array = arr;
-        console.log(arr);
 
         angular.element(document.querySelector("#results")).removeClass("ng-hide");
         angular.element(document.querySelector("#danger")).addClass("ng-hide");
+
     }
 
 });
