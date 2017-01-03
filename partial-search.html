@@ -1,0 +1,18 @@
+<div>
+    <div class="alert alert-info ng-hide">{{resultNum}} result(s) returned.</div>
+
+    <table id="results" class="table table-hover table-condensed ng-hide">
+        <tr>
+            <td><strong>Course</strong></td>
+            <td><strong>Name</strong></td>
+            <td><strong>Description</strong></td>
+        </tr>
+        <tr ng-repeat="course in array">
+            <td class="col-lg-1">{{course.Abbr}} {{course.Number}}</td>
+            <td class="col-lg-1">{{course.Name}}</td>
+            <td class="col-lg-4">{{course.Description}}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="alert alert-danger ng-hide" id="danger">{{error}}</div>

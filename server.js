@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
+var fs = require("fs");
 
-var MongoClient = require('mongodb');
+//var MongoClient = require('mongodb');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -10,8 +11,8 @@ app.use(express.static(__dirname + '/public'));
 // Route
 var router = express.Router()
 
-router.get('/partial-course.html', function(request, response){
-    response.sendFile('partial-course.html', {"root": __dirname});
+router.get('/partial-search.html', function(request, response){
+    response.sendFile('partial-search.html', {"root": __dirname});
 });
 
 router.get('/css/simple-sidebar.css', function(request, response) {
@@ -31,10 +32,15 @@ router.get('/', function(request, response) {
     response.sendFile("index.html", {"root": __dirname});
 });
 
-router.get('/search/:course', function(request, response){
-    var req = decodeURIComponent(request.params.course);
-    console.log("Before: " + request.params.course)
-    console.log("After: " + req);
+router.get('/init', function(request, response) {
+    fs.readFile("fields.json", function(err, data) {
+        response.json(data.toString());
+    });
+});
+
+router.get('/search/field/:course', function(request, response){
+    var req = request.params.course;
+    /*
 
     // string process
     req = req.toUpperCase().replace(/ /g, "");
@@ -56,7 +62,25 @@ router.get('/search/:course', function(request, response){
             "Number" : new RegExp(num)
         }
     }
+    */
 
+    var courses; 
+    fs.readFile("courses.json", function(err, data) {
+        courses = JSON.parse(data);  
+        var data = {
+            'courses': courses
+        }
+
+        var results = [];
+        for(i = 0; i< courses.length; i++){
+            if(req.localeCompare(courses[i].Abbr) == 0){
+                results.push(courses[i]);
+            }
+        }
+        response.json(results);
+    });
+
+    /*
     MongoClient.connect('mongodb://admin:123@ds151008.mlab.com:51008/heroku_k0jd41mf', function (err, db){
         if (err){
             throw error;
@@ -71,12 +95,12 @@ router.get('/search/:course', function(request, response){
                 response.send("Invalid Course");
             }
             else{
-                response.send(JSON.stringify(courses));
+                response.json(courses);
         }
         });
 
     });
-
+    */
 });
 
 app.use(router);

@@ -16,7 +16,8 @@
     <title>UT Course Lookup</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="/css/simple-sidebar.css" rel="stylesheet">
@@ -30,7 +31,19 @@
 
 </head>
 
-<body ng-app="ut" ng-controller="MainCtrl">
+<body ng-app="ut" ng-controller="InitCtrl">
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.js"></script>
+    <script src="/app.js"></script>
 
     <div id="wrapper">
 
@@ -55,35 +68,47 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="jumbotron vertical-center text-center">UT Course Lookup Tool</h1>
-                        <form class="form-group">
-                            <div class="col-lg-4">    
-                                <input type="text" class="form-control" ng-model="course" placeholder="Enter course here (ex. M 408C)">
+                        
+                        <div class="form-group" ng-init="loadFields($select.selected[1])">
+                            <div class="row">
+                                <label class="col-lg-2 control-label">Field of Study</label>
+                                <div class="col-lg-10">
+                                    <ui-select ng-model="searchField" theme="bootstrap" on-select="loadCourses(searchField)">
+                                        <ui-select-match>{{$select.selected[1]}} - {{$select.selected[0]}}</ui-select-match>
+                                        <ui-select-choices repeat="field in fields | filter: $select.search">
+                                            <span ng-bind-html="field[1] | highlight: $select.search"></span> - 
+                                            <span ng-bind-html="field[0] | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
                             </div>
-                            <div class="col-lg-4">
-                                <button type="submit" class="btn btn-primary" ng-click="search()">Submit</button> 
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <br>
-                <div class="col-lg-12" ng-view></div>
+                        </div>
 
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-lg-2 control-label">Course</label>
+                                <div class="col-lg-10">
+                                    <ui-select ng-model="searchCourse" theme="bootstrap" on-select="displayCourse(searchCourse)">
+                                        <ui-select-match>{{$select.selected.Abbr}} {{$select.selected.Number}} - {{$select.selected.Name}}</ui-select-match>
+                                        <ui-select-choices repeat="course in courses | filter: $select.search">
+                                            <span ng-bind-html="course.Abbr | highlight: $select.search"></span> 
+                                            <span ng-bind-html="course.Number | highlight: $select.search"></span>
+                                            <div ng-bind-html="course.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <div ng-view></div>
+                </div>
             </div>
         </div>
         <!-- /page-content-wrapper -->
 
     </div>
     <!-- /wrapper -->
-
-    <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.js"></script>
-    <script src="/app.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>

@@ -13,3 +13,5 @@ docker-compose.yml
 
 # Bower
 bower_components
+
+process.js
