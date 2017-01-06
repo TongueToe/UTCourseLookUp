@@ -63,6 +63,23 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
 
 });
 
+
+app.filter("filterCourses", function() {
+    return function(inputCourses, searchString) {
+        if(searchString){
+            var arr = [];
+            for (i = 0; i < inputCourses.length; i++){
+                if (inputCourses[i].Name.toUpperCase().includes(searchString.toUpperCase()) || inputCourses[i].Number.includes(searchString.toUpperCase())){
+                    arr.push(inputCourses[i]);
+                }
+            }
+            return arr;
+        }
+        else return inputCourses;
+    }
+});
+
+
 /*
 app.controller("SearchCtrl", function($scope, $http, $location){
     $scope.search = function() {
