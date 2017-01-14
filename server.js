@@ -15,8 +15,12 @@ router.get('/partial-search.html', function(request, response){
     response.sendFile('partial-search.html', {"root": __dirname});
 });
 
-router.get('/css/simple-sidebar.css', function(request, response) {
-    response.sendFile("css/simple-sidebar.css", {"root": __dirname});
+router.get('/css/bootstrap.css', function(request, response) {
+    response.sendFile("css/bootstrap.css", {"root": __dirname});
+});
+
+router.get('/css/custom.css', function(request, response) {
+    response.sendFile("css/custom.css", {"root": __dirname});
 });
 
 router.get('/app.js', function(request, response){
