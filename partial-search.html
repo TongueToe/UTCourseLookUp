@@ -1,7 +1,7 @@
 <div>
     <div class="alert alert-info ng-hide">{{resultNum}} result(s) returned.</div>
 
-    <table id="results" class="table table-hover table-condensed">
+    <table id="results" class="table table-hover table-condensed" ng-show="array && array[0]">
         <tr>
             <td><strong>Course</strong></td>
             <td><strong>Name</strong></td>

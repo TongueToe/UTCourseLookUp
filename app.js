@@ -3,18 +3,14 @@ var app = angular.module("ut", ["ui.router"]);
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
     $locationProvider.html5Mode(true);
-    $urlRouterProvider.otherwise('');
+    $urlRouterProvider.otherwise("/");
 
     $stateProvider
     .state('home', {
+        url: "/",
+        templateUrl: "partial-search.html",
         controller: "InitCtrl"
-    })
-
-    .state('result', {
-        templateUrl: "/partial-search.html",
-        controller: "InitCtrl"
-    })
-    
+    });
     
 });
 
@@ -52,13 +48,46 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
     }
 
     $scope.loadCourses = function(field) {
-
-        $http.get('/search/field/' + field[1]).then(function(response) {
-            $scope.courses = response.data;
+        $http.get('/search/field/' + field).then(function(response) {
+            $scope.currentField = field;
+            
+            var arr = response.data;
+            $scope.courses=[];
+            
+            if($scope.courseDiv == "both"){
+                $scope.courses = arr;
+            }
+            else if($scope.courseDiv == "lower"){
+                for (let a of arr) {
+                    if(parseInt(a.Number.substr(1,1)) < 2){
+                        $scope.courses.push(a);
+                    }
+                }
+            }
+            else {
+                for (let a of arr) {
+                    if(parseInt(a.Number.substr(1,1)) > 1){
+                        $scope.courses.push(a)
+                    }
+                }
+            }
         });
+
     }
 
-    $scope.displayCourse = function(course, $select) {
+    $scope.setDiv = function() {
+        $scope.courseDiv = "both";
+    }
+
+    $scope.updateCourseDiv = function() {
+        if(!$scope.currentField) {
+            return;
+        }
+
+        $scope.loadCourses($scope.currentField);
+    }
+
+    $scope.updateTable = function(course, $select) {
         var arr = [];
         arr.push(course)
         $scope.array = arr;

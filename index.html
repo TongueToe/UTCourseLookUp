@@ -43,7 +43,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
     <script src="/app.js"></script>
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
@@ -52,15 +52,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="">UT</a>
+                <a class="navbar-brand" ui-sref="home">UT Undergraduate</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Link</a></li>
+                    <li><a ui-sref="home">Link</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
+                    <li><a ui-sref="home">Link</a></li>
                 </ul>
             </div>
         </div>
@@ -76,24 +76,40 @@
                     <div class="form-group">
                         <label for="fos" class="col-lg-2 control-label">Field of Study</label>
                         <div class="col-lg-10">
-                            <select class="form-control" name="fos" id="fos" ng-model="formfield" ng-change="loadCourses(formfield)" ng-options="field[1] + ' - ' + field[0] for field in fields">
+                            <select class="form-control" name="fos" id="fos" ng-model="formfield" ng-change="loadCourses(formfield[1])" ng-options="field[1] + ' - ' + field[0] for field in fields">
                                 <option value="" disabled selected style="display: none;">Select a Field...</option>
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label for="courses" class="col-lg-2 control-label">Courses</label>
                         <div class="col-lg-10">
-                            <select class="form-control" id="courses" ng-model="formcourse" ng-change="displayCourse(formcourse)" ng-options="course.Number + ': ' + course.Name for course in courses">
+                            <select class="form-control" id="courses" ng-model="formcourse" ng-change="updateTable(formcourse)" ng-options="course.Number + ': ' + course.Name for course in courses">
                                 <option value="" disabled selected style="display: none;">Select a Course...</option>
                             </select>
                         </div>
                     </div>
-                    <a ui-sref="result" class="btn btn-primary" ng-disabled="courseForm.$invalid">Submit</a>
+
+                    <div class="col-lg-6 col-lg-offset-3" ng-init="setDiv()">  
+                        <label class="radio-inline">
+                            <input type="radio" name="division" ng-model="courseDiv" value="both" ng-change="updateCourseDiv()">Both
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="division" ng-model="courseDiv" value="lower" ng-change="updateCourseDiv()">Lower Division
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="division" ng-model="courseDiv" value="upper" ng-change="updateCourseDiv()">Upper Division
+                        </label>
+                    </div>
                 </form>
 
             </div>
-            <div class="col-lg-6 col-lg-offset-3" ui-view></div>
+            
+            <div class="container">
+                <div class="col-lg-6 col-lg-offset-3" ui-view></div>
+            </div>
+
         </div>
     </div>
     <!-- /page-content-wrapper -->
