@@ -28,14 +28,17 @@ app.factory("Fields", function() {
 
 app.controller("InitCtrl", function($scope, $http, Fields) {
     
+    //ng-init for search form
     $scope.loadFields = function() {
         $scope.searchToggle = false; //if true, show all classes; if false, show 1 class
+        $scope.courseDiv = "both"; //default radio button
 
         $http.get('/init').then(function(response) {
 
             Fields.setFields(JSON.parse(response.data));
             $scope.fields = Fields.fields;
 
+            // Structure of fields
             // [
             //  ...
             //  ["Biochemistry", "BCH"]
@@ -78,10 +81,6 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
 
     }
 
-    $scope.setDiv = function() {
-        $scope.courseDiv = "both";
-    }
-
     $scope.updateCourseDiv = function() {
         if($scope.currentField) {
             $scope.loadCourses($scope.currentField);
@@ -98,7 +97,7 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
 
 });
 
-
+/*
 app.filter("filterCourses", function() {
     return function(inputCourses, searchString) {
         if(searchString){
@@ -113,7 +112,7 @@ app.filter("filterCourses", function() {
         else return inputCourses;
     }
 });
-
+*/
 
 /*
 app.controller("SearchCtrl", function($scope, $http, $location){

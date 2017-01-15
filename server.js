@@ -68,9 +68,8 @@ router.get('/search/field/:course', function(request, response){
     }
     */
 
-    var courses; 
     fs.readFile("courses.json", function(err, data) {
-        courses = JSON.parse(data);  
+        var courses = JSON.parse(data);  
         var data = {
             'courses': courses
         }
