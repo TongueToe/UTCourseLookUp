@@ -1,7 +1,9 @@
-<div ng-show="array && array[0]">
-    <div class="alert alert-info ng-hide">{{resultNum}} result(s) returned.</div>
-    <div>
+<div class="panel panel-default" ng-show="array && array[0]">
+    <div class="panel-heading">
         <strong>{{array[0].Abbr}} {{array[0].Number}} - {{array[0].Name}}</strong>
-        <div>{{array[0].Description}}</div>
     </div>
+    <div class="panel-body">
+        {{array[0].Description}}
+    </div>
+
 </div>
