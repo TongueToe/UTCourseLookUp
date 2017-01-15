@@ -44,29 +44,6 @@ router.get('/init', function(request, response) {
 
 router.get('/search/field/:course', function(request, response){
     var req = request.params.course;
-    /*
-
-    // string process
-    req = req.toUpperCase().replace(/ /g, "");
-    var indexOfFirstNum = req.indexOf(req.match(/\d/));
-
-    var abbr = req.substring(0, indexOfFirstNum);
-    var num = req.substring(indexOfFirstNum);
-
-    if(indexOfFirstNum < 1){
-        abbr = req;
-
-        queryObj = {
-            "Abbr" : abbr
-        }
-    }
-    else {
-        queryObj = {
-            "Abbr" : abbr,
-            "Number" : new RegExp(num)
-        }
-    }
-    */
 
     fs.readFile("courses.json", function(err, data) {
         var courses = JSON.parse(data);  
@@ -83,27 +60,6 @@ router.get('/search/field/:course', function(request, response){
         response.json(results);
     });
 
-    /*
-    MongoClient.connect('mongodb://admin:123@ds151008.mlab.com:51008/heroku_k0jd41mf', function (err, db){
-        if (err){
-            throw error;
-        }
-        
-        db.collection('utcourses').find(queryObj).toArray(function(err, courses){
-            if(err) {
-                throw err;
-            }
-
-            if(courses.length == 0){
-                response.send("Invalid Course");
-            }
-            else{
-                response.json(courses);
-        }
-        });
-
-    });
-    */
 });
 
 app.use(router);
