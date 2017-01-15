@@ -29,7 +29,7 @@ app.factory("Fields", function() {
 app.controller("InitCtrl", function($scope, $http, Fields) {
     
     $scope.loadFields = function() {
-        $scope.searchToggle = true; //if true, show all classes; if false, show 1 class
+        $scope.searchToggle = false; //if true, show all classes; if false, show 1 class
 
         $http.get('/init').then(function(response) {
 
@@ -83,16 +83,17 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
     }
 
     $scope.updateCourseDiv = function() {
-        if(!$scope.currentField) {
-            return;
+        if($scope.currentField) {
+            $scope.loadCourses($scope.currentField);
+            $scope.searchToggle = true;
         }
-
-        $scope.loadCourses($scope.currentField);
     }
 
-    $scope.updateCourse = function(course, $select) {
-        $scope.courseResult = course;
-        $scope.searchToggle = false;
+    $scope.updateCourse = function(course) {
+        if(course){
+            $scope.courseResult = course;
+            $scope.searchToggle = false;
+        }
     }
 
 });

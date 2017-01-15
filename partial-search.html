@@ -1,4 +1,4 @@
-<div ng-show="courses && courses[0] && searchToggle">
+<div ng-show="courses && searchToggle">
 
     <div class="row" ng-repeat="course in courses track by $index" ng-if="$index % 3 == 0">
         <div class="col-lg-4" ng-repeat="i in [$index, $index + 1, $index + 2]" ng-if="courses[i] != null">
