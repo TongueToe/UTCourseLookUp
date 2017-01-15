@@ -1,16 +1,7 @@
-<div>
+<div ng-show="array && array[0]">
     <div class="alert alert-info ng-hide">{{resultNum}} result(s) returned.</div>
-
-    <table id="results" class="table table-hover table-condensed" ng-show="array && array[0]">
-        <tr>
-            <td><strong>Course</strong></td>
-            <td><strong>Name</strong></td>
-            <td><strong>Description</strong></td>
-        </tr>
-        <tr ng-repeat="course in array">
-            <td class="col-lg-1">{{course.Abbr}} {{course.Number}}</td>
-            <td class="col-lg-1">{{course.Name}}</td>
-            <td class="col-lg-4">{{course.Description}}</td>
-        </tr>
-    </table>
+    <div>
+        <strong>{{array[0].Abbr}} {{array[0].Number}} - {{array[0].Name}}</strong>
+        <div>{{array[0].Description}}</div>
+    </div>
 </div>
