@@ -29,6 +29,8 @@ app.factory("Fields", function() {
 app.controller("InitCtrl", function($scope, $http, Fields) {
     
     $scope.loadFields = function() {
+        $scope.searchToggle = true; //if true, show all classes; if false, show 1 class
+
         $http.get('/init').then(function(response) {
 
             Fields.setFields(JSON.parse(response.data));
@@ -50,10 +52,11 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
     $scope.loadCourses = function(field) {
         $http.get('/search/field/' + field).then(function(response) {
             $scope.currentField = field;
+            $scope.searchToggle = true;
             
             var arr = response.data;
             $scope.courses=[];
-            
+
             if($scope.courseDiv == "both"){
                 $scope.courses = arr;
             }
@@ -87,11 +90,9 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
         $scope.loadCourses($scope.currentField);
     }
 
-    $scope.updateTable = function(course, $select) {
-        var arr = [];
-        arr.push(course)
-        $scope.array = arr;
-
+    $scope.updateCourse = function(course, $select) {
+        $scope.courseResult = course;
+        $scope.searchToggle = false;
     }
 
 });

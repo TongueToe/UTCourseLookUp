@@ -1,9 +1,29 @@
-<div class="panel panel-default" ng-show="array && array[0]">
-    <div class="panel-heading">
-        <strong>{{array[0].Abbr}} {{array[0].Number}} - {{array[0].Name}}</strong>
-    </div>
-    <div class="panel-body">
-        {{array[0].Description}}
+<div ng-show="courses && courses[0] && searchToggle">
+
+    <div class="row" ng-repeat="course in courses track by $index" ng-if="$index % 3 == 0">
+        <div class="col-lg-4" ng-repeat="i in [$index, $index + 1, $index + 2]" ng-if="courses[i] != null">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <strong>{{courses[i].Abbr}} {{courses[i].Number}} - {{courses[i].Name}}</strong>
+                </div>
+                <div class="panel-body">
+                    {{courses[i].Description}}
+                </div>
+            </div>
+        </div>
     </div>
 
+</div>
+
+<div ng-show="!searchToggle && courseResult">
+    <div class="col-lg-4 col-lg-offset-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <strong>{{courseResult.Abbr}} {{courseResult.Number}} - {{courseResult.Name}}</strong>
+            </div>
+            <div class="panel-body">
+                {{courseResult.Description}}
+            </div>
+        </div>
+    </div>
 </div>

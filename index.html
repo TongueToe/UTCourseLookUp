@@ -69,7 +69,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
-            <div class="well col-lg-6 col-lg-offset-3">
+            <div class="well well-lg col-lg-6 col-lg-offset-3">
 
                 <form name="courseForm" class="form-horizontal" ng-init="loadFields()">
                     <legend>Course Finder</legend>
@@ -85,7 +85,7 @@
                     <div class="form-group">
                         <label for="courses" class="col-lg-2 control-label">Courses</label>
                         <div class="col-lg-10">
-                            <select class="form-control" id="courses" ng-model="formcourse" ng-change="updateTable(formcourse)" ng-options="course.Number + ': ' + course.Name for course in courses">
+                            <select class="form-control" id="courses" ng-model="formcourse" ng-change="updateCourse(formcourse)" ng-options="course.Number + ': ' + course.Name for course in courses">
                                 <option value="" disabled selected style="display: none;">Select a Course...</option>
                             </select>
                         </div>
@@ -105,11 +105,10 @@
                 </form>
 
             </div>
-            
-            <div class="container">
-                <div class="col-lg-6 col-lg-offset-3" ui-view></div>
-            </div>
+        </div>
 
+        <div class="container col-lg-12">
+            <div ui-view></div>
         </div>
     </div>
     <!-- /page-content-wrapper -->
