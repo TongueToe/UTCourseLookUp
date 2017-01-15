@@ -1,17 +1,20 @@
-var app = angular.module("ut", ["ngRoute", 'ui.select', 'ngSanitize']);
+var app = angular.module("ut", ["ui.router"]);
 
-app.config(function($routeProvider, $locationProvider){
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
     $locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise('');
 
-    $routeProvider
-    .when('/', {
+    $stateProvider
+    .state('home', {
+        controller: "InitCtrl"
+    })
+
+    .state('result', {
         templateUrl: "/partial-search.html",
         controller: "InitCtrl"
     })
-    .otherwise({
-        redirectTo: '/'
-    });
+    
     
 });
 
@@ -35,11 +38,15 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
             Fields.setFields(JSON.parse(response.data));
             $scope.fields = Fields.fields;
 
+            // [
+            //  ...
+            //  ["Biochemistry", "BCH"]
+            //  ...
+            // ]
+
         }, function(response){
 
             $scope.error = "Something went wrong";
-            angular.element(document.querySelector("#results")).addClass("ng-hide");
-            angular.element(document.querySelector("#danger")).removeClass("ng-hide");
 
         })
     }
@@ -55,9 +62,6 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
         var arr = [];
         arr.push(course)
         $scope.array = arr;
-
-        angular.element(document.querySelector("#results")).removeClass("ng-hide");
-        angular.element(document.querySelector("#danger")).addClass("ng-hide");
 
     }
 
