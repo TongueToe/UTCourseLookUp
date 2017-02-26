@@ -42,14 +42,11 @@ router.get('/init', function(request, response) {
     });
 });
 
-router.get('/search/field/:course', function(request, response){
-    var req = request.params.course;
+router.get('/search/field/:field', function(request, response){
+    var req = request.params.field;
 
     fs.readFile("courses.json", function(err, data) {
-        var courses = JSON.parse(data);  
-        var data = {
-            'courses': courses
-        }
+        var courses = JSON.parse(data);
 
         var results = [];
         for(i = 0; i< courses.length; i++){
