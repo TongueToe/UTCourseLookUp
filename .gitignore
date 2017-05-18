@@ -16,3 +16,4 @@ bower_components
 
 process.js
 temp
+.env
