@@ -10,7 +10,6 @@
     <meta name="author" content="TongueToe">
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-
     <base href="/">
 
     <title>UT Course Lookup</title>
@@ -26,16 +25,6 @@
 
 <body ng-app="ut" ng-controller="InitCtrl">
 
-    <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
-    <script src="/app.js"></script>
-
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -50,7 +39,7 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                 <ul class="nav navbar-nav">
-                    <li><a ui-sref="home">Link</a></li>
+                    <li><a ui-sref="plan1">4-Year Planner</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a ui-sref="home">Link</a></li>
@@ -61,50 +50,24 @@
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-        <div class="container-fluid">
-            <div class="well well-lg col-lg-6 col-lg-offset-3">
-
-                <form name="courseForm" class="form-horizontal" ng-init="loadFields()">
-                    <legend>Course Finder</legend>
-                    <div class="form-group">
-                        <label for="fos" class="col-lg-2 control-label">Field of Study</label>
-                        <div class="col-lg-10">
-                            <select class="form-control" name="fos" id="fos" ng-model="formfield" ng-change="loadCourses(formfield[1])" ng-options="field[1] + ' - ' + field[0] for field in fields">
-                                <option value="" disabled selected style="display: none;">Select a Field...</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="courses" class="col-lg-2 control-label">Courses</label>
-                        <div class="col-lg-10">
-                            <select class="form-control" id="courses" ng-model="formcourse" ng-change="updateCourse(formcourse)" ng-options="course.Number + ': ' + course.Name for course in courses">
-                                <option value="" disabled selected style="display: none;">Select a Course...</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-lg-offset-3" ng-init="setDiv()">  
-                        <label class="radio-inline">
-                            <input type="radio" name="division" ng-model="courseDiv" value="both" ng-change="updateCourseDiv()">Both
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="division" ng-model="courseDiv" value="lower" ng-change="updateCourseDiv()">Lower Division
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="division" ng-model="courseDiv" value="upper" ng-change="updateCourseDiv()">Upper Division
-                        </label>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-
-        <div class="container col-lg-12">
-            <div ui-view></div>
-        </div>
+        <div ui-view></div>
     </div>
     <!-- /page-content-wrapper -->
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+    
+    <!-- AngularJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+    
+    <!-- ui-router -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+    
+    <!-- app controller -->
+    <script src="/app.js"></script>
 
 </body>
 

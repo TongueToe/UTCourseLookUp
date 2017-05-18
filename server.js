@@ -11,8 +11,12 @@ app.use(express.static(__dirname + '/public'));
 // Route
 var router = express.Router()
 
-router.get('/partial-search.html', function(request, response){
-    response.sendFile('partial-search.html', {"root": __dirname});
+router.get('/home.html', function(request, response){
+    response.sendFile('home.html', {"root": __dirname});
+});
+
+router.get('/plan1.html', function(request, response){
+    response.sendFile('plan1.html', {"root": __dirname});
 });
 
 router.get('/css/bootstrap.css', function(request, response) {
@@ -39,14 +43,14 @@ router.get('/init', function(request, response) {
 });
 
 router.get('/search/field/:field', function(request, response){
-    var req = request.params.field;
+    var req = request.params.field.replace(/ /g, '').toUpperCase();
 
     fs.readFile("courses.json", function(err, data) {
         var courses = JSON.parse(data);
-
         var results = [];
+
         for(i = 0; i< courses.length; i++){
-            if(req.localeCompare(courses[i].Abbr) == 0){
+            if(req == courses[i].Abbr.toUpperCase().replace(/ /g, '')){
                 results.push(courses[i]);
             }
         }
@@ -55,10 +59,23 @@ router.get('/search/field/:field', function(request, response){
 
 });
 
+router.get('/search/:field/:course', function(request, response){
+    var field = request.params.field.replace(/ /g, '').toUpperCase();
+    var course = request.params.course.replace(/ /g, '').toUpperCase();
+
+    fs.readFile("courses.json", function(err, data){
+        var courses = JSON.parse(data);
+        for(i = 0; i < courses.length; i++){
+            if(field == courses[i].Abbr.toUpperCase().replace(/ /g, '') && course == courses[i].Number.toUpperCase().replace(/ /g, ''))
+                response.json(courses[i]);
+        }
+    });
+});
+
 app.use(router);
 
 app.listen(app.get('port'), function() {
-    console.log('Node app is running on port', app.get('port'));
+    console.log('Running on port', app.get('port'));
 });
 
 
