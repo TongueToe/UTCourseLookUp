@@ -8,10 +8,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
     $stateProvider
     .state('home', {
         url: "/",
-        templateUrl: "partial-search.html",
+        templateUrl: "home.html",
         controller: "InitCtrl"
     });
-    
+
 });
 
 app.factory("Fields", function() {

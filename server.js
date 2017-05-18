@@ -11,6 +11,10 @@ app.use(express.static(__dirname + '/public'));
 // Route
 var router = express.Router()
 
+router.get('/home.html', function(request, response){
+    response.sendFile('home.html', {"root": __dirname});
+});
+
 router.get('/partial-search.html', function(request, response){
     response.sendFile('partial-search.html', {"root": __dirname});
 });
