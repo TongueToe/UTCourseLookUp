@@ -15,7 +15,7 @@
 			<div class="form-group">
 				<label for="courses" class="col-lg-2 control-label">Courses</label>
 				<div class="col-lg-10">
-					<select class="form-control" id="courses" ng-model="formcourse" ng-change="updateCourse(formcourse)" ng-options="course.Number + ': ' + course.Name for course in courses">
+					<select class="form-control" id="courses" ng-model="formcourse" ng-change="loadCourse(formcourse)" ng-options="course.Number + ': ' + course.Name for course in courses">
 						<option value="" disabled selected style="display: none;">Select a Course...</option>
 					</select>
 				</div>

@@ -6,10 +6,17 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
+    
     .state('home', {
         url: "/",
         templateUrl: "home.html",
         controller: "InitCtrl"
+    })
+
+    .state('plan1', {
+        url: "/4yrplanner",
+        templateUrl: "plan1.html",
+        //controller: 
     });
 
 });
@@ -88,7 +95,7 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
         }
     }
 
-    $scope.updateCourse = function(course) {
+    $scope.loadCourse = function(course) {
         if(course){
             $scope.courseResult = course;
             $scope.searchToggle = false;
