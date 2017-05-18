@@ -42,7 +42,7 @@
 
         <div class="row" ng-repeat="course in courses track by $index" ng-if="$index % 3 == 0">
             <div class="col-lg-4" ng-repeat="i in [$index, $index + 1, $index + 2]" ng-if="courses[i] != null">
-                <div class="panel panel-prmary">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         <strong>{{courses[i].Abbr}} {{courses[i].Number}} - {{courses[i].Name}}</strong>
                     </div>
