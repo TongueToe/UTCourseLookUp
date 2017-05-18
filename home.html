@@ -38,5 +38,46 @@
 </div>
 
 <div class="container col-lg-12">
-	<div ui-view></div>
+    <div ng-show="courses && searchToggle">
+
+        <div class="row" ng-repeat="course in courses track by $index" ng-if="$index % 3 == 0">
+            <div class="col-lg-4" ng-repeat="i in [$index, $index + 1, $index + 2]" ng-if="courses[i] != null">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <strong>{{courses[i].Abbr}} {{courses[i].Number}} - {{courses[i].Name}}</strong>
+                    </div>
+                    <div class="panel-body">
+                        {{courses[i].Description.split("Prerequisite: ")[0]}}
+                    </div>
+                    <div class="panel-footer">
+                        Prerequisite: {{courses[i].Description.split("Prerequisite: ")[1]}}
+                        <span ng-if="!courses[i].Description.split('Prerequisite: ')[1]">
+                            None.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div ng-show="!searchToggle && courseResult">
+        <div class="col-lg-4 col-lg-offset-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <strong>{{courseResult.Abbr}} {{courseResult.Number}} - {{courseResult.Name}}</strong>
+                </div>
+                <div class="panel-body">
+                    {{courseResult.Description.split("Prerequisite: ")[0]}}
+                </div>
+                    <div class="panel-footer">
+                        Prerequisite: {{courseResult.Description.split("Prerequisite: ")[1]}}
+                        <span ng-if="!courseResult.Description.split('Prerequisite: ')[1]">
+                            None.
+                        </span>
+                    </div>
+            </div>
+        </div>
+    </div>
 </div>
+

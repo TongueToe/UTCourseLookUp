@@ -15,10 +15,6 @@ router.get('/home.html', function(request, response){
     response.sendFile('home.html', {"root": __dirname});
 });
 
-router.get('/partial-search.html', function(request, response){
-    response.sendFile('partial-search.html', {"root": __dirname});
-});
-
 router.get('/css/bootstrap.css', function(request, response) {
     response.sendFile("css/bootstrap.css", {"root": __dirname});
 });
