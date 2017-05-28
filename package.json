@@ -17,7 +17,8 @@
     "jquery": "^3.1.1",
     "json-query": "^2.2.0",
     "mongodb": "^2.2.16",
-    "ui-select": "^0.19.6"
+    "ui-select": "^0.19.6",
+    "bower": "^1.8.0",
   },
   "repository": {
     "type": "git",
