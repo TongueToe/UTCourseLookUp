@@ -2,3 +2,8 @@
     cursor: pointer; 
 }
 
+.fixed {
+    right: 0px;
+    position: fixed;
+}
+
