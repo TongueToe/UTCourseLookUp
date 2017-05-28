@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="TongueToe">
+    <meta name="author" content="Tung To">
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <base href="/">
@@ -19,38 +19,30 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.css" rel="stylesheet">
 
+    <link href="/css/main.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
 </head>
 
-<body ng-app="ut" ng-controller="InitCtrl">
+<body ng-app="ut">
 
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand" ui-sref="home">UT Undergraduate</a>
             </div>
 
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                <ul class="nav navbar-nav">
-                    <li><a ui-sref="plan1">4-Year Planner</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a ui-sref="home">Link</a></li>
-                </ul>
-            </div>
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="home">Home</a></li>
+                <li><a ui-sref="syllabus">Quick Syllabus</a></li>
+                <!--<li><a ui-sref="plan1">4-Year Planner</a></li>-->
+            </ul>
         </div>
     </nav>
 
     <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <div ui-view></div>
+    <div class="height" id="page-content-wrapper">
+        <div class="height" ui-view></div>
     </div>
     <!-- /page-content-wrapper -->
 

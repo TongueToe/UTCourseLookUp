@@ -13,8 +13,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
         controller: "InitCtrl"
     })
 
+    .state('syllabus', {
+        //url: "/1",
+        templateUrl: "syllabus.html",
+        //controller: "SyllabusCtrl"
+    })
+
     .state('plan1', {
-        url: "/4yrplanner",
+        //url: "/2",
         templateUrl: "plan1.html",
         //controller: 
     });
@@ -102,6 +108,12 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
         }
     }
 
+});
+
+app.controller("SyllabusCtrl", function($scope, $http){
+    $scope.submit = function(course) {
+        
+    }
 });
 
 /*

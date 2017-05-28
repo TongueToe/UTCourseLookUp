@@ -1,0 +1,28 @@
+<div class="syllabus height" ng-controller="SyllabusCtrl">    
+    <div class="col-lg-4 container-fluid">
+        <form class="form-horizontal well">
+            <fieldset>
+                <legend>Syllabus Finder</legend>
+                
+                <div class="form-group">
+                    <label for="inputCourse" class="col-lg-2 control-label">Course Name</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="inputCourse" ng-model="course" placeholder="EX. BIO320, bch 369, E E 339">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="reset" class="btn btn-default">Reset</button>
+                        <button type="submit" class="btn btn-primary" ng-click="submit(course)">Submit</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="col-lg-8 height">
+        <iframe width="100%" height="100%" src="https://www.w3schools.com">
+    </div>
+</div>

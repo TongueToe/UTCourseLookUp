@@ -15,12 +15,20 @@ router.get('/home.html', function(request, response){
     response.sendFile('home.html', {"root": __dirname});
 });
 
+router.get('/syllabus.html', function(request, response){
+    response.sendFile('syllabus.html', {"root": __dirname});
+});
+
 router.get('/plan1.html', function(request, response){
     response.sendFile('plan1.html', {"root": __dirname});
 });
 
 router.get('/css/bootstrap.css', function(request, response) {
     response.sendFile("css/bootstrap.css", {"root": __dirname});
+});
+
+router.get('/css/main.css', function(request, response) {
+    response.sendFile("css/main.css", {"root": __dirname});
 });
 
 router.get('/app.js', function(request, response){

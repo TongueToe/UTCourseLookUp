@@ -1,81 +1,83 @@
-<div class="container-fluid">
-	<div class="well well-lg col-lg-6 col-lg-offset-3">
+<div ng-controller="InitCtrl">
+    <div class="container-fluid">
+        <div class="well well-lg col-lg-6 col-lg-offset-3">
 
-		<form name="courseForm" class="form-horizontal" ng-init="loadFields()">
-			<legend>Course Finder</legend>
-			<div class="form-group">
-				<label for="fos" class="col-lg-2 control-label">Field of Study</label>
-				<div class="col-lg-10">
-					<select class="form-control" name="fos" id="fos" ng-model="formfield" ng-change="loadCourses(formfield[1])" ng-options="field[1] + ' - ' + field[0] for field in fields">
-						<option value="" disabled selected style="display: none;">Select a Field...</option>
-					</select>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="courses" class="col-lg-2 control-label">Courses</label>
-				<div class="col-lg-10">
-					<select class="form-control" id="courses" ng-model="formcourse" ng-change="loadCourse(formcourse)" ng-options="course.Number + ': ' + course.Name for course in courses">
-						<option value="" disabled selected style="display: none;">Select a Course...</option>
-					</select>
-				</div>
-			</div>
-
-			<div class="col-lg-6 col-lg-offset-3" ng-init="setDiv()">  
-				<label class="radio-inline">
-					<input type="radio" name="division" ng-model="courseDiv" value="both" ng-change="updateCourseDiv()">Both
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="division" ng-model="courseDiv" value="lower" ng-change="updateCourseDiv()">Lower Division
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="division" ng-model="courseDiv" value="upper" ng-change="updateCourseDiv()">Upper Division
-				</label>
-			</div>
-		</form>
-
-	</div>
-</div>
-
-<div class="container col-lg-12">
-    <div ng-show="courses && searchToggle">
-
-        <div class="row" ng-repeat="course in courses track by $index" ng-if="$index % 3 == 0">
-            <div class="col-lg-4" ng-repeat="i in [$index, $index + 1, $index + 2]" ng-if="courses[i] != null">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <strong>{{courses[i].Abbr}} {{courses[i].Number}} - {{courses[i].Name}}</strong>
+            <form name="courseForm" class="form-horizontal" ng-init="loadFields()">
+                <legend>Course Finder</legend>
+                <div class="form-group">
+                    <label for="fos" class="col-lg-2 control-label">Field of Study</label>
+                    <div class="col-lg-10">
+                        <select class="form-control" name="fos" id="fos" ng-model="formfield" ng-change="loadCourses(formfield[1])" ng-options="field[1] + ' - ' + field[0] for field in fields">
+                            <option value="" disabled selected style="display: none;">Select a Field...</option>
+                        </select>
                     </div>
-                    <div class="panel-body">
-                        {{courses[i].Description.split("Prerequisite: ")[0]}}
+                </div>
+
+                <div class="form-group">
+                    <label for="courses" class="col-lg-2 control-label">Courses</label>
+                    <div class="col-lg-10">
+                        <select class="form-control" id="courses" ng-model="formcourse" ng-change="loadCourse(formcourse)" ng-options="course.Number + ': ' + course.Name for course in courses">
+                            <option value="" disabled selected style="display: none;">Select a Course...</option>
+                        </select>
                     </div>
-                    <div class="panel-footer">
-                        Prerequisite: {{courses[i].Description.split("Prerequisite: ")[1]}}
-                        <span ng-if="!courses[i].Description.split('Prerequisite: ')[1]">
-                            None.
-                        </span>
+                </div>
+
+                <div class="col-lg-6 col-lg-offset-3" ng-init="setDiv()">  
+                    <label class="radio-inline">
+                        <input type="radio" name="division" ng-model="courseDiv" value="both" ng-change="updateCourseDiv()">Both
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="division" ng-model="courseDiv" value="lower" ng-change="updateCourseDiv()">Lower Division
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="division" ng-model="courseDiv" value="upper" ng-change="updateCourseDiv()">Upper Division
+                    </label>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="container col-lg-12">
+        <div ng-show="courses && searchToggle">
+
+            <div class="row" ng-repeat="course in courses track by $index" ng-if="$index % 3 == 0">
+                <div class="col-lg-4" ng-repeat="i in [$index, $index + 1, $index + 2]" ng-if="courses[i] != null">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <strong>{{courses[i].Abbr}} {{courses[i].Number}} - {{courses[i].Name}}</strong>
+                        </div>
+                        <div class="panel-body">
+                            {{courses[i].Description.split("Prerequisite: ")[0]}}
+                        </div>
+                        <div class="panel-footer">
+                            Prerequisite: {{courses[i].Description.split("Prerequisite: ")[1]}}
+                            <span ng-if="!courses[i].Description.split('Prerequisite: ')[1]">
+                                None.
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
-
-    <div ng-show="!searchToggle && courseResult">
-        <div class="col-lg-4 col-lg-offset-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <strong>{{courseResult.Abbr}} {{courseResult.Number}} - {{courseResult.Name}}</strong>
-                </div>
-                <div class="panel-body">
-                    {{courseResult.Description.split("Prerequisite: ")[0]}}
-                </div>
-                    <div class="panel-footer">
-                        Prerequisite: {{courseResult.Description.split("Prerequisite: ")[1]}}
-                        <span ng-if="!courseResult.Description.split('Prerequisite: ')[1]">
-                            None.
-                        </span>
+        <div ng-show="!searchToggle && courseResult">
+            <div class="col-lg-4 col-lg-offset-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <strong>{{courseResult.Abbr}} {{courseResult.Number}} - {{courseResult.Name}}</strong>
                     </div>
+                    <div class="panel-body">
+                        {{courseResult.Description.split("Prerequisite: ")[0]}}
+                    </div>
+                        <div class="panel-footer">
+                            Prerequisite: {{courseResult.Description.split("Prerequisite: ")[1]}}
+                            <span ng-if="!courseResult.Description.split('Prerequisite: ')[1]">
+                                None.
+                            </span>
+                        </div>
+                </div>
             </div>
         </div>
     </div>
