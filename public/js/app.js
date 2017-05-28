@@ -1,4 +1,4 @@
-var app = angular.module("ut", ["ui.router"]);
+var app = angular.module("ut", ["ui.router", "ui.bootstrap"]);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
@@ -20,10 +20,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
         controller: "SyllabusCtrl"
     })
 
-    .state('plan1', {
+    .state('dplan', {
         //url: "/2",
         url: "/", 
-        templateUrl: "plan1.html",
+        templateUrl: "dplan.html",
         //controller: 
     });
 
