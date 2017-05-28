@@ -1,8 +1,0 @@
-html, .height {
-    height: 100%;
-}
-
-body {
-    height: calc(100% - 65px);
-}
-

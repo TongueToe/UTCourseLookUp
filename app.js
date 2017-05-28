@@ -16,7 +16,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
     .state('syllabus', {
         //url: "/1",
         templateUrl: "syllabus.html",
-        //controller: "SyllabusCtrl"
+        controller: "SyllabusCtrl"
     })
 
     .state('plan1', {
@@ -110,9 +110,31 @@ app.controller("InitCtrl", function($scope, $http, Fields) {
 
 });
 
-app.controller("SyllabusCtrl", function($scope, $http){
+app.controller("SyllabusCtrl", function($scope, $http, $window){
     $scope.submit = function(course) {
+        course = course.replace(/ /g, "");
         
+        var field;
+        var number;
+
+        for(i = 0; i < course.length; i++){
+            if(!isNaN(course.charAt(i))){
+                field = course.substring(0, i);
+                number = course.substring(i, course.length);
+                break;
+            }
+        }
+
+        $http.get("/search/" + field + "/" + number).then(function(response){
+            field = response.data.Abbr.replace(/ /g, "+");
+            number = response.data.Number;
+    
+            var url = "https://utdirect.utexas.edu/apps/student/coursedocs/nlogon/?semester=&department=" + field + 
+                "&course_number=" + number + "&course_title=&unique=&instructor_first=&instructor_last=&course_type=In+Residence&search=Search";
+    
+            $window.open(url, "_blank");
+        });
+
     }
 });
 

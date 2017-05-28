@@ -27,10 +27,6 @@ router.get('/css/bootstrap.css', function(request, response) {
     response.sendFile("css/bootstrap.css", {"root": __dirname});
 });
 
-router.get('/css/main.css', function(request, response) {
-    response.sendFile("css/main.css", {"root": __dirname});
-});
-
 router.get('/app.js', function(request, response){
     response.sendFile("app.js", {"root": __dirname});
 });
