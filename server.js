@@ -5,40 +5,11 @@ var fs = require("fs");
 //var MongoClient = require('mongodb');
 
 app.set('port', (process.env.PORT || 5000));
-
 app.use(express.static(__dirname + '/public'));
 
-// Route
 var router = express.Router()
 
-router.get('/home.html', function(request, response){
-    response.sendFile('home.html', {"root": __dirname});
-});
-
-router.get('/syllabus.html', function(request, response){
-    response.sendFile('syllabus.html', {"root": __dirname});
-});
-
-router.get('/plan1.html', function(request, response){
-    response.sendFile('plan1.html', {"root": __dirname});
-});
-
-router.get('/css/bootstrap.css', function(request, response) {
-    response.sendFile("css/bootstrap.css", {"root": __dirname});
-});
-
-router.get('/app.js', function(request, response){
-    response.sendFile("app.js", {"root": __dirname});
-});
-
-router.get('/favicon.ico', function(request, response){
-    response.sendFile("favicon.ico", {"root": __dirname});
-});
-
 // Requests
-router.get('/', function(request, response) {
-    response.sendFile("index.html", {"root": __dirname});
-});
 
 router.get('/init', function(request, response) {
     fs.readFile("fields.json", function(err, data) {
