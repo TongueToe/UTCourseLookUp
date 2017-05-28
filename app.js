@@ -15,12 +15,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
     .state('syllabus', {
         //url: "/1",
+        url: "/",
         templateUrl: "syllabus.html",
         controller: "SyllabusCtrl"
     })
 
     .state('plan1', {
         //url: "/2",
+        url: "/", 
         templateUrl: "plan1.html",
         //controller: 
     });
