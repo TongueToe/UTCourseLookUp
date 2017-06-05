@@ -1,4 +1,4 @@
-var app = angular.module("ut", ["ui.router", "ui.bootstrap"]);
+var app = angular.module("ut", ["ui.router", "ui.bootstrap", "ngDragDrop"]);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
@@ -9,14 +9,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
     
     .state('home', {
         url: "/",
-        templateUrl: "../home.html",
+        templateUrl: "home.html",
         controller: "InitCtrl"
     })
 
     .state('syllabus', {
         //url: "/1",
         url: "/",
-        templateUrl: "../syllabus.html",
+        templateUrl: "syllabus.html",
         controller: "SyllabusCtrl"
     })
 
@@ -24,7 +24,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
         //url: "/2",
         url: "/", 
         templateUrl: "dplan.html",
-        //controller: 
+        controller: "DegreeCtrl"
     });
 
 });
@@ -130,7 +130,10 @@ app.controller("SyllabusCtrl", function($scope, $http, $window){
         $http.get("/search/" + field + "/" + number).then(function(response){
             field = response.data.Abbr.replace(/ /g, "+");
             number = response.data.Number;
-    
+   
+            if(field.length === 1)
+                field += "++";
+
             var url = "https://utdirect.utexas.edu/apps/student/coursedocs/nlogon/?semester=&department=" + field + 
                 "&course_number=" + number + "&course_title=&unique=&instructor_first=&instructor_last=&course_type=In+Residence&search=Search";
     
@@ -140,7 +143,78 @@ app.controller("SyllabusCtrl", function($scope, $http, $window){
     }
 });
 
+app.controller("DegreeCtrl", function($scope, $http){
+    $scope.defaultInit = function(){ 
+        $scope.defaultLDCourses = [
+            {number: "E E 302", name: "Introduction to Electrical Engineering"},
+            {number: "E E 306", name: "Introduction to Computing"},
+            {number: "E E 319K", name: "Introduction to Embedded Systems"},
+            {number: "E E 411", name: "Circuit Theory"},
+            {number: "E E 312", name: "Software Design and Implementation I"},
+            {number: "E E 313", name: "Linear Systems and Signals"}
+        ]
+        
+        $scope.defaultUDCourses = [
+            {number: "E E 333T", name: "Engineering Communication"},
+            {number: "E E 351K", name: "Probability and Random Processes"},
+            {number: "E E 364D", name: "Introduction to Senior Design"},
+            {number: "E E 364E", name: "Interdisciplinary Entrepreneurship"},
+            {number: "E E 464G", name: "Multidisciplinary Senior Design Project"},
+            {number: "E E 464H", name: "Honors Senior Design Project"},
+            {number: "E E 464K", name: "Senior Design Project"},
+            {number: "E E 464R", name: "Research Senior Design Project"},
+            {number: "E E 464S", name: "Startup Senior Design Project"}
+        ]
+
+        $scope.LDcourses = [];
+        angular.copy($scope.defaultLDCourses, $scope.LDcourses);
+        
+        $scope.UDcourses = [];
+        angular.copy($scope.defaultUDCourses, $scope.UDcourses);
+        
+        $scope.years = [];
+        $scope.years.push(
+            {id: 0, fall: [], spring: []}
+        );
+    }
+
+    $scope.dropped = function(event, ui, id, semester) {
+        for(i = 0; i < $scope.LDcourses.length; i++){
+            if($scope.LDcourses[i] && ui.draggable.scope().course.number === $scope.LDcourses[i].number)
+                delete $scope.LDcourses[i];
+        }
+
+        console.log(ui.draggable.scope());
+
+        if(semester === "fall")
+            $scope.years[id].fall.push(ui.draggable.scope().course);
+        else if(semester === "spring")
+            $scope.years[id].spring.push(ui.draggable.scope().course);
+    }
+
+    /*
+    $scope.reset = function(){
+        var elements = document.getElementsByClassName('course');
+        console.log(elements);
+        while (elements[0])
+            elements[0].parentNode.removeChild(elements[0]);
+        $scope.LDcourses = []
+        angular.copy($scope.defaultLDCourses, $scope.LDcourses);
+        
+        $scope.years= [];
+    }
+    */
+});
+
 /*
+ *
+ *
+            {number: "E E 302", name: "Introduction to Electrical Engineering"},
+            {number: "E E 306", name: "Introduction to Computing"},
+            {number: "E E 319K", name: "Introduction to Embedded Systems"},
+            {number: "E E 411", name: "Circuit Theory"},
+            {number: "E E 312", name: "Software Design and Implementation I"},
+            {number: "E E 313", name: "Linear Systems and Signals"}
 app.filter("filterCourses", function() {
     return function(inputCourses, searchString) {
         if(searchString){

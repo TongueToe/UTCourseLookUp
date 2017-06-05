@@ -1,128 +1,54 @@
-<div class="col-lg-8"> 
-    <div class="col-lg-4 col-lg-offset-1">
-        <h4>Fall Semester</h4>
-        <div class="list-group">
-            <a class="list-group-item">
-                <p>E E 306</p>
-                <small>Introduction to Computing</small>
-            </a>
-        </div>
-        <div class="list-group">
-            <a class="list-group-item">
-                <p>E E 302</p>
-                <small>Introduction to Electrical Engineering</small>
-            </a>
-        </div>
-        <div class="list-group">
-            <a class="list-group-item">
-                <p>M 408D</p>
-                <small>Sequences, Series, and Multivariable Calculus</small>
-            </a>
-        </div>
-        <div class="list-group">
-            <a class="list-group-item">
-                <p>M 340L</p>
-                <small>Matrices and Matrix Calculations</small>
-            </a>
-        </div>
-        <h4>Hours: 13</h4>
+<div class="col-lg-8" ng-repeat="year in years track by year.id"> 
+    <div class="col-lg-4 col-lg-offset-1 course" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropped(year.id,\'fall\')'}">
+        <h4>Fall Semester <small>(drop classes here)</small></h4>
         <hr>
-        <h4>Fall Semester</h4>
-        <div class="list-group">
+        <div class="list-group" ng-repeat="course in year.fall track by $index" ng-hide="!course.name">
             <a class="list-group-item">
-                <p>E E 306</p>
-                <small>Introduction to Computing</small>
+                <p>{{course.number}}</p>
+                <small>{{course.name}}</small>
             </a>
         </div>
-        <div class="list-group">
-            <a class="list-group-item">
-                <p>E E 302</p>
-                <small>Introduction to Electrical Engineering</small>
-            </a>
-        </div>
-        <div class="list-group">
-            <a class="list-group-item">
-                <p>M 408D</p>
-                <small>Sequences, Series, and Multivariable Calculus</small>
-            </a>
-        </div>
-        <div class="list-group">
-            <a class="list-group-item">
-                <p>M 340L</p>
-                <small>Matrices and Matrix Calculations</small>
-            </a>
-        </div>
-        <h4>Hours: 13</h4>
-        <hr>
-        <h4>Fall Semester</h4>
-        <div class="list-group">
-            <a class="list-group-item">
-                <p>E E 306</p>
-                <small>Introduction to Computing</small>
-            </a>
-        </div>
-        <div class="list-group">
-            <a class="list-group-item">
-                <p>E E 302</p>
-                <small>Introduction to Electrical Engineering</small>
-            </a>
-        </div>
-        <div class="list-group">
-            <a class="list-group-item">
-                <p>M 408D</p>
-                <small>Sequences, Series, and Multivariable Calculus</small>
-            </a>
-        </div>
-        <div class="list-group">
-            <a class="list-group-item">
-                <p>M 340L</p>
-                <small>Matrices and Matrix Calculations</small>
-            </a>
-        </div>
-        <h4>Hours: 13</h4>
     </div>
-    <div class="col-lg-4 col-lg-offset-1">
-        <h4>Spring Semester</h4>
-        <div class="list-group">
+    <div class="col-lg-4 col-lg-offset-1 course" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropped(year.id,\'spring\')'}">
+        <h4>Spring Semester <small>(drop classes here)</small></h4>
+        <hr>
+        <div class="list-group" ng-repeat="course in year.spring track by $index" ng-hide="!course.name">
             <a class="list-group-item">
-                <p>E E 319K</p>
-                <small>Introduction to Embedded Systems</small>
+                <p>{{course.number}}</p>
+                <small>{{course.name}}</small>
             </a>
         </div>
     </div>
 </div>
 
-<div class="col-lg-4 fixed">
+<div class="col-lg-8">
+    <hr>
+    <div class="col-lg-offset-2">
+        <button class="btn btn-default" ng-click="reset()">Reset</button>
+        <button class="btn btn-primary" ng-click="addYear()">Add Semesters</button>
+    </div>
+</div>
+
+<div class="col-lg-4 fixed" ng-init="defaultInit()">
     <div class="col-lg-10 col-lg-offset-1"> 
         <uib-tabset active="active">
             <uib-tab index="0" heading="ECE Lower-Div Core">
                 <hr>
-                <div class="list-group">
+                <div class="list-group course" data-drag="true" jqyoui-draggable="{animate:true}" data-jqyoui-options="{revert: 'invalid'}" ng-repeat="course in LDcourses track by $index" ng-hide="!course.name">
                     <a class="list-group-item">
-                        <p>E E 306</p>
-                        <small>Introduction to Computing</small>
-                    </a>
-                </div>
-                <div class="list-group">
-                    <a class="list-group-item">
-                        <p>E E 302</p>
-                        <small>Introduction to Electrical Engineering</small>
-                    </a>
-                </div>
-                <div class="list-group">
-                    <a class="list-group-item">
-                        <p>E E 411</p>
-                        <small>Circuit Theory</small>
-                    </a>
-                </div>
-                <div class="list-group">
-                    <a class="list-group-item">
-                        <p>E E 319K</p>
-                        <small>Introduction to Embedded Systems</small>
+                        <p>{{course.number}}</p>
+                        <small>{{course.name}}</small>
                     </a>
                 </div>
             </uib-tab>
             <uib-tab index="1" heading="ECE Upper-Div Core">
+                <hr>
+                <div class="list-group course" data-drag="true" jqyoui-draggable="{animate:true}" data-jqyoui-options="{revert: 'invalid'}" ng-repeat="course in UDcourses track by $index" ng-hide="!course.name">
+                    <a class="list-group-item">
+                        <p>{{course.number}}</p>
+                        <small>{{course.name}}</small>
+                    </a>
+                </div>
             </uib-tab>
         </uib-tabset>
     </div>
