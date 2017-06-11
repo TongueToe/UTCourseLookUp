@@ -131,6 +131,9 @@ app.controller("SyllabusCtrl", function($scope, $http, $window){
             field = response.data.Abbr.replace(/ /g, "+");
             number = response.data.Number;
     
+            if(field.length === 1)
+                field += "++";
+            
             var url = "https://utdirect.utexas.edu/apps/student/coursedocs/nlogon/?semester=&department=" + field + 
                 "&course_number=" + number + "&course_title=&unique=&instructor_first=&instructor_last=&course_type=In+Residence&search=Search";
     
