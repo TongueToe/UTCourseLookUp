@@ -145,7 +145,7 @@ app.controller("SyllabusCtrl", function($scope, $http, $window){
 
 app.controller("DegreeCtrl", function($scope, $http){
     $scope.defaultInit = function(){ 
-        $scope.defaultLDCourses = [
+        $scope.defaultLDCores = [
             {number: "E E 302", name: "Introduction to Electrical Engineering"},
             {number: "E E 306", name: "Introduction to Computing"},
             {number: "E E 319K", name: "Introduction to Embedded Systems"},
@@ -154,7 +154,7 @@ app.controller("DegreeCtrl", function($scope, $http){
             {number: "E E 313", name: "Linear Systems and Signals"}
         ]
         
-        $scope.defaultUDCourses = [
+        $scope.defaultUDCores = [
             {number: "E E 333T", name: "Engineering Communication"},
             {number: "E E 351K", name: "Probability and Random Processes"},
             {number: "E E 364D", name: "Introduction to Senior Design"},
@@ -166,44 +166,36 @@ app.controller("DegreeCtrl", function($scope, $http){
             {number: "E E 464S", name: "Startup Senior Design Project"}
         ]
 
-        $scope.LDcourses = [];
-        angular.copy($scope.defaultLDCourses, $scope.LDcourses);
+        $scope.ldc = [];
+        angular.copy($scope.defaultLDCores, $scope.ldc);
         
-        $scope.UDcourses = [];
-        angular.copy($scope.defaultUDCourses, $scope.UDcourses);
+        $scope.udc = [];
+        angular.copy($scope.defaultUDCores, $scope.udc);
         
         $scope.years = [];
+        $scope.yearID = 0;
+
         $scope.years.push(
-            {id: 0, fall: [], spring: []}
+            {id: $scope.yearID++, fall: [], spring: []}
         );
     }
 
-    $scope.dropped = function(event, ui, id, semester) {
-        for(i = 0; i < $scope.LDcourses.length; i++){
-            if($scope.LDcourses[i] && ui.draggable.scope().course.number === $scope.LDcourses[i].number)
-                delete $scope.LDcourses[i];
-        }
-
-        console.log(ui.draggable.scope());
-
-        if(semester === "fall")
-            $scope.years[id].fall.push(ui.draggable.scope().course);
-        else if(semester === "spring")
-            $scope.years[id].spring.push(ui.draggable.scope().course);
-    }
-
-    /*
     $scope.reset = function(){
-        var elements = document.getElementsByClassName('course');
-        console.log(elements);
-        while (elements[0])
-            elements[0].parentNode.removeChild(elements[0]);
-        $scope.LDcourses = []
-        angular.copy($scope.defaultLDCourses, $scope.LDcourses);
-        
         $scope.years= [];
+        $scope.years.push(
+            {id: 0, fall: [], spring: []}
+        );
+
+        angular.copy($scope.defaultLDCores, $scope.ldc);
+        angular.copy($scope.defaultUDCores, $scope.udc);
     }
-    */
+
+    $scope.addYear = function() {
+        $scope.years.push(
+            {id: $scope.yearID++, fall: [], spring: []}
+        );
+    }
+
 });
 
 /*
