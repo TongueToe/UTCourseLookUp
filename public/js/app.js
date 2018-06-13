@@ -144,33 +144,42 @@ app.controller("SyllabusCtrl", function($scope, $http, $window){
 });
 
 app.controller("DegreeCtrl", function($scope, $http){
+
     $scope.defaultInit = function(){ 
-        $scope.defaultLDCores = [
-            {number: "E E 302", name: "Introduction to Electrical Engineering"},
-            {number: "E E 306", name: "Introduction to Computing"},
-            {number: "E E 319K", name: "Introduction to Embedded Systems"},
-            {number: "E E 411", name: "Circuit Theory"},
-            {number: "E E 312", name: "Software Design and Implementation I"},
-            {number: "E E 313", name: "Linear Systems and Signals"}
+        defaultldc = [
+            {abbr: "EE", number: "302"},
+            {abbr: "EE", number: "306"},
+            {abbr: "EE", number: "319K"},
+            {abbr: "EE", number: "411"},
+            {abbr: "EE", number: "312"},
+            {abbr: "EE", number: "313"}
         ]
         
-        $scope.defaultUDCores = [
-            {number: "E E 333T", name: "Engineering Communication"},
-            {number: "E E 351K", name: "Probability and Random Processes"},
-            {number: "E E 364D", name: "Introduction to Senior Design"},
-            {number: "E E 364E", name: "Interdisciplinary Entrepreneurship"},
-            {number: "E E 464G", name: "Multidisciplinary Senior Design Project"},
-            {number: "E E 464H", name: "Honors Senior Design Project"},
-            {number: "E E 464K", name: "Senior Design Project"},
-            {number: "E E 464R", name: "Research Senior Design Project"},
-            {number: "E E 464S", name: "Startup Senior Design Project"}
+        defaultudc = [
+            {abbr: "EE", number: "333T"},
+            {abbr: "EE", number: "351K"},
+            {abbr: "EE", number: "364D"},
+            {abbr: "EE", number: "364E"},
+            {abbr: "EE", number: "464G"},
+            {abbr: "EE", number: "464H"},
+            {abbr: "EE", number: "464K"},
+            {abbr: "EE", number: "464R"},
+            {abbr: "EE", number: "464S"}
         ]
 
         $scope.ldc = [];
-        angular.copy($scope.defaultLDCores, $scope.ldc);
+        for(let c of defaultldc)
+            fetchCourse(function(a) {
+                $scope.ldc.push(a);
+            }, c);
         
         $scope.udc = [];
-        angular.copy($scope.defaultUDCores, $scope.udc);
+        for(let c of defaultudc)
+            fetchCourse(function(a) {
+                $scope.udc.push(a);
+            }, c);
+
+        console.log($scope.ldc);
         
         $scope.years = [];
         $scope.yearID = 0;
@@ -179,16 +188,16 @@ app.controller("DegreeCtrl", function($scope, $http){
             {id: $scope.yearID++, fall: [], spring: []}
         );
     }
+    
+    fetchCourse = function(callback, course) {
+        $http.get("/search/" + course.abbr + "/" + course.number).then(function(response) {
+            callback(response.data);
+        });
+    }
 
     $scope.reset = function(){
-        $scope.years= [];
-        $scope.years.push(
-            {id: 0, fall: [], spring: []}
-        );
-
-        angular.copy($scope.defaultLDCores, $scope.ldc);
-        angular.copy($scope.defaultUDCores, $scope.udc);
-    }
+    	$scope.defaultInit();
+	}
 
     $scope.addYear = function() {
         $scope.years.push(
@@ -198,64 +207,3 @@ app.controller("DegreeCtrl", function($scope, $http){
 
 });
 
-/*
- *
- *
-            {number: "E E 302", name: "Introduction to Electrical Engineering"},
-            {number: "E E 306", name: "Introduction to Computing"},
-            {number: "E E 319K", name: "Introduction to Embedded Systems"},
-            {number: "E E 411", name: "Circuit Theory"},
-            {number: "E E 312", name: "Software Design and Implementation I"},
-            {number: "E E 313", name: "Linear Systems and Signals"}
-app.filter("filterCourses", function() {
-    return function(inputCourses, searchString) {
-        if(searchString){
-            var arr = [];
-            for (i = 0; i < inputCourses.length; i++){
-                if (inputCourses[i].Name.toUpperCase().includes(searchString.toUpperCase()) || inputCourses[i].Number.includes(searchString.toUpperCase())){
-                    arr.push(inputCourses[i]);
-                }
-            }
-            return arr;
-        }
-        else return inputCourses;
-    }
-});
-*/
-
-/*
-app.controller("SearchCtrl", function($scope, $http, $location){
-    $scope.search = function() {
-        if($scope.course){
-            $http.get('/search/' + $scope.course).then(function(response){
-                if(typeof response.data == 'object' && 'Name' in response.data[0] && response.data[0].Name){
-                    $scope.array = response.data;
-                    $scope.resultNum = response.data.length;
-
-                    angular.element(document.querySelector("#results")).removeClass("ng-hide");
-                    angular.element(document.querySelector("#danger")).addClass("ng-hide");
-                }
-                else {
-                    $scope.error = response.data;
-
-                    angular.element(document.querySelector("#results")).addClass("ng-hide");
-                    angular.element(document.querySelector("#danger")).removeClass("ng-hide");
-                }
-
-            }, function(response){
-                $scope.error = "Something went wrong.";
-                angular.element(document.querySelector("#results")).addClass("ng-hide");
-                angular.element(document.querySelector("#danger")).removeClass("ng-hide");
-            });
-        }
-        else{
-            $scope.error = "Cannot search with empty field";
-            angular.element(document.querySelector("#results")).addClass("ng-hide");
-            angular.element(document.querySelector("#danger")).removeClass("ng-hide");
-        }
-    }
-
-
-});
-
-*/

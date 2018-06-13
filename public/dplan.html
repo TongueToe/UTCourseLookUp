@@ -2,20 +2,20 @@
     <div class="col-lg-4 col-lg-offset-1 course" ng-model="year.fall" data-drop="true" data-jqyoui-options jqyoui-droppable="{multiple:true}">
         <h4>Fall Semester <small>(drop classes here)</small></h4>
         <hr>
-        <div class="list-group" ng-repeat="course in year.fall track by $index" ng-hide="!course.name">
-            <a class="list-group-item">
-                <p>{{course.number}}</p>
-                <small>{{course.name}}</small>
+        <div class="list-group" ng-repeat="course in year.fall track by $index" ng-hide="!course.Name">
+            <a class="list-group-item" data-placement="bottom" title={{course.Description}} onmouseenter="$(this).tooltip('show')">
+                <p>{{course.Abbr}} {{course.Number}}</p>
+                <small>{{course.Name}}</small>
             </a>
         </div>
     </div>
     <div class="col-lg-4 col-lg-offset-1 course" ng-model="year.spring" data-drop="true" data-jqyoui-options jqyoui-droppable="{multiple:true}">
         <h4>Spring Semester <small>(drop classes here)</small></h4>
         <hr>
-        <div class="list-group" ng-repeat="course in year.spring track by $index" ng-hide="!course.name">
-            <a class="list-group-item">
-                <p>{{course.number}}</p>
-                <small>{{course.name}}</small>
+        <div class="list-group" ng-repeat="course in year.spring track by $index" ng-hide="!course.Name">
+            <a class="list-group-item" data-placement="bottom" title={{course.Description}} onmouseenter="$(this).tooltip('show')">
+                <p>{{course.Abbr}} {{course.Number}}</p>
+                <small>{{course.Name}}</small>
             </a>
         </div>
     </div>
@@ -34,19 +34,19 @@
         <uib-tabset active="active">
             <uib-tab index="0" heading="ECE Lower-Div Core">
                 <hr>
-                <div class="list-group" ng-model="course" data-drag="true" jqyoui-draggable="{animate:true}" data-jqyoui-options="{revert:'invalid'}" ng-repeat="course in ldc track by $index" ng-show="course.name">
-                    <a class="list-group-item">
-                        <p>{{course.number}}</p>
-                        <small>{{course.name}}</small>
+                <div class="list-group" ng-model="course" data-drag="true" jqyoui-draggable="{animate:true}" data-jqyoui-options="{revert:'invalid'}" ng-repeat="course in ldc track by $index" ng-show="course.Name">
+                    <a class="list-group-item" data-placement="left" title={{course.Description}} onmouseenter="$(this).tooltip('show')">
+                        <p>{{course.Abbr}} {{course.Number}}</p>
+                        <small>{{course.Name}}</small>
                     </a>
                 </div>
             </uib-tab>
             <uib-tab index="1" heading="ECE Upper-Div Core">
                 <hr>
-                <div class="list-group" ng-model="course" data-drag="true" jqyoui-draggable="{animate:true}" data-jqyoui-options="{revert:'invalid'}" ng-repeat="course in udc track by $index" ng-show="course.name">
-                    <a class="list-group-item">
-                        <p>{{course.number}}</p>
-                        <small>{{course.name}}</small>
+                <div class="list-group" ng-model="course" data-drag="true" jqyoui-draggable="{animate:true}" data-jqyoui-options="{revert:'invalid'}" ng-repeat="course in udc track by $index" ng-show="course.Name">
+                    <a class="list-group-item" data-placement="left" title={{course.Description}} onmouseenter="$(this).tooltip('show')">
+                        <p>{{course.Abbr}} {{course.Number}}</p>
+                        <small>{{course.Name}}</small>
                     </a>
                 </div>
             </uib-tab>
